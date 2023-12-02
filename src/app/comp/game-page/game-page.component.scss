@@ -1,0 +1,8 @@
+.pad {
+    padding: 20px;
+}
+.grid {
+    display: grid;
+    gap: 10px;
+    grid-template: repeat(1fr);
+}
