@@ -1,7 +1,12 @@
 <div class="wrapper pad">
-    <div class="wrapper grid">
-        <div class="cell" *ngFor="let item of scale">
+    <table id="your" class="table">
+        <tr *ngFor="let rows of yourTable">
+            <td *ngFor="let cell of rows" class="cell">
 
-        </div>
-    </div>
+            </td>
+        </tr>
+    </table>
+    <table id="enemy" class="table" *ngIf="!razmechenie">
+        
+    </table>
 </div>
