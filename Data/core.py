@@ -1,30 +1,23 @@
-
-class Coord:
-    x: int
-    y: int
+from pydantic import BaseModel
 
 
-class Player:
+class Player(BaseModel):
     name: str
     buildings: list
     shields: list
-    coord_builds: list
-    coord_shields: list
+    atk: list
     alive: bool
 
 
-class GameRoom:
-    players: list
-    player_turn: str
-    game_turn: int
-    scale: int
-    max_players: int
+class GameRoom(BaseModel):
+    players: list = list()
+    player_turn: int = 0
+    game_turn: int = 0
+    # timer: int = 0
+    max_players: int = 2
     started: bool
 
 
-#    A B C D E
-# 1 | S ~ ~ C ~ |
-# 2 | ~ M ~ ~ ~ |
-# 3 | ~ ~ ~ ~ ~ |
-# 4 | ~ ~ C ~ ~ |
-# 5 | ~ ~ ~ ~ S |
+class Action(BaseModel):
+    action: str
+    body: any
