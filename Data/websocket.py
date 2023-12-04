@@ -1,3 +1,5 @@
+import json
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 
 from Data.core import GameRoom, Action
@@ -5,6 +7,10 @@ from Data.core import GameRoom, Action
 # from Data.core import
 
 app = FastAPI()
+
+
+def data_dump(d: any):
+    return json.dumps(d, default=lambda x: x.__dict__, ensure_ascii=True, separators=(',', ':'))
 
 
 class ConnectionManager:
@@ -32,7 +38,7 @@ class ConnectionManager:
             await connection.send_text(message)
 
 
-game = GameRoom()
+game = GameRoom(2)
 max_players = game.max_players
 manager = ConnectionManager(max_players, game.players)
 
@@ -48,3 +54,15 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str, action: Actio
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"Client #{client_id} left the chat")
+
+
+def serialize(obj):
+    if hasattr(obj, '__dict__'):
+        if isinstance(obj, dict):
+            return {key: serialize(value) for key, value in obj.items()}
+        elif isinstance(obj, list):
+            return [serialize(elem) for elem in obj]
+        else:
+            return obj.dict
+    else:
+        return str(obj)
