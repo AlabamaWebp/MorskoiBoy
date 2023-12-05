@@ -1,7 +1,14 @@
-<div class="wrapper pad">
-    <div class="wrapper grid">
-        <div class="cell" *ngFor="let item of scale">
-
+<div class="wrapper flexed rotatee">
+    <div class="game wrapper">
+        <app-game-wrapper [data]="enemy_buldings"></app-game-wrapper>
+        <app-game-wrapper [data]="your_buldings"></app-game-wrapper>
+    </div>
+    <div class="footer">
+        <div class="card_wrapper" style="margin: 0 10px 0 0;">
+            карты защиты
+        </div>
+        <div class="card_wrapper">
+            карты атаки
         </div>
     </div>
 </div>
